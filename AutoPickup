@@ -1,0 +1,25 @@
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Players = game:GetService("Players")
+local PetsService = ReplicatedStorage:WaitForChild("GameEvents"):WaitForChild("PetsService")
+
+local player = Players.LocalPlayer
+local workspacePets = workspace:WaitForChild("PetsPhysical") -- folder pet
+
+local function pickupAllPets()
+    if workspace:FindFirstChild("PetsPhysical") then
+        for _, petMover in pairs(workspacePets:GetChildren()) do
+            local owner = petMover:GetAttribute("OWNER")
+            if owner and owner == player.Name then
+                for _, pet in pairs(petMover:GetChildren()) do
+                    -- FireServer action untuk pick up pet
+                    PetsService:FireServer("UnequipPet", pet.Name)
+                end
+            end
+        end
+    end
+end
+
+while true do
+    pickupAllPets()
+    wait(1) -- delay aman supaya tidak spam server
+end
