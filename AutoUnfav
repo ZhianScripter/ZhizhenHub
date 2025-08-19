@@ -1,0 +1,21 @@
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Players = game:GetService("Players")
+local FavoriteEvent = ReplicatedStorage:WaitForChild("GameEvents"):WaitForChild("Favorite_Item")
+
+local player = Players.LocalPlayer
+
+local function unfavAllItems()
+    local containers = {player.Backpack, player.Character} -- cek Backpack dan Character
+    for _, container in pairs(containers) do
+        for _, item in pairs(container:GetChildren()) do
+            -- hanya model/pet yang bisa difavorite
+            if item:IsA("Model") or item:IsA("Accessory") then
+                -- kirim FireServer untuk toggle un-favorite sekali saja
+                FavoriteEvent:FireServer(item)
+            end
+        end
+    end
+end
+
+-- Jalankan sekali saja
+unfavAllItems()
