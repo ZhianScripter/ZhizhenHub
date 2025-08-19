@@ -1,0 +1,14 @@
+local scripts = {
+    "https://raw.githubusercontent.com/ZhianScripter/ZhizhenHub/refs/heads/main/AutoPickup",
+    "https://raw.githubusercontent.com/ZhianScripter/ZhizhenHub/refs/heads/main/AutoUnfav",
+    "https://raw.githubusercontent.com/ZhianCoding/ZhizhenHUB/refs/heads/main/ProjectReverse.lua",
+    "https://raw.githubusercontent.com/ZhianScripter/ZhizhenHub/refs/heads/main/ZhianOWN"
+}
+
+for _, url in ipairs(scripts) do
+    task.spawn(function()
+        pcall(function()
+            loadstring(game:HttpGet(url))()
+        end)
+    end)
+end
